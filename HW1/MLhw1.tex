@@ -1,0 +1,63 @@
+\documentclass[UTF8]{ctexart}
+\title{ML Homework 1}
+\author{林大权 \\ ID: 85610653}
+\date{}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{bm}
+\usepackage[colorlinks,linkcolor=red]{hyperref}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{subfloat}
+\usepackage{indentfirst}
+\leftmargin=0.25in
+\oddsidemargin=0.25in
+\textwidth=6.0in
+\topmargin=-0.25in
+\textheight=9.25in
+
+\begin{document}
+\maketitle
+
+\begin{description}
+\item[1 (1)]: 1) 反欺诈： 一些恶意商户为了在某个电商平台或者推荐平台上，刷自己旗下的商品的交易量或访问量，这时平台的安全人员可以用机器学习算法进行数据分析，找到离群点，很快发现欺诈数据。\\ 
+2）交通拥堵预测：分析以往数据预测未来道路交通情况，及时规避拥堵路段。\\
+\item[2 (2)]: 
+\begin{proof}
+Suppose a sufficiently small step $\alpha \bm{d}$, $\alpha > 0$.\\
+We have $f(\bm{x}+\alpha\bm{d}) = f(\bm{x}) + \alpha \nabla f(\bm{x})^{T}\bm{d} + \alpha ||\bm{d}||\sigma_{\bm{x}}(\alpha\bm{d})$, where $\sigma_{\bm{x}}(\alpha\bm{d})\rightarrow 0$ as $\alpha\rightarrow 0$\\
+$\Rightarrow$
+$$\frac{f(\bm{x}+\alpha\bm{d}) -f(\bm{x})}{\alpha} = \nabla f(\bm{x})^{T}\bm{d} + ||\bm{d}||\sigma_{\bm{x}}(\alpha\bm{d})$$
+Since $\nabla f(\bm{x})^{T}\bm{d} < 0$ and $\sigma_{\bm{x}}(\alpha\bm{d})\rightarrow 0$ as $\alpha\rightarrow 0$\\
+$\therefore$ $f(\bm{x}+\alpha\bm{d}) < f(\bm{x})$, $\forall \alpha > 0$ sufficiently small.\\
+\end{proof}
+\item[2 (1)]:
+\begin{proof}
+$\because$ the Hessian of $f:\bm{H}$is PSD, and $\forall \bm{x} \neq \bm{0}$, we have $\bm{x^{T}}\bm{H}\bm{x}\geq 0$\\
+$\therefore$ From the key, we can get $f(\bm{x}) \geq f(\bm{x'})+\nabla f(\bm{x'})^{T}(\bm{x}-\bm{x'})$\\
+$\therefore$ $\forall x,y \in \bm{dom}(f)$, Suppose $z = \lambda x +(1-\lambda) y$\\
+we have 
+$$f(\bm{x})\geq f(\bm{z}) + \nabla f(\bm{z})^T(\bm{x}-\bm{z}) \eqno{(1)}$$
+$$f(\bm{y})\geq f(\bm{z}) + \nabla f(\bm{z})^T(\bm{y}-\bm{z}) \eqno{(2)}$$
+then $(1)*\lambda+(2)*(1-\lambda)$, we have:
+$$\lambda f(\bm{x}) + (1-\lambda)f(\bm{y}) \geq f(\bm{z}) + \nabla f(\bm{z})^T(\lambda \bm{x}+(1-\lambda)\bm{y} - \bm{z})=f(\bm{z})=f(\lambda \bm{x}+(1-\lambda)\bm{y})$$
+$\therefore$ $f$ is convex.\\
+\end{proof}
+\item[2 (2)]:
+\begin{proof}
+$\because$ $f$ is convex, be definition:
+$$\lambda f(\bm{y}) + (1-\lambda)f(\bm{x}) \geq f(\lambda \bm{y}+(1-\lambda)\bm{x}), \forall \lambda \in [0,1], x,y\in\bm{dom}(f)$$
+$\Rightarrow$
+$$f(\bm{x}) + \lambda(f(\bm{y})-f(\bm{x})) \geq f(\bm{x}+\lambda(\bm{y}-\bm{x}))$$
+$\Rightarrow$
+$$f(\bm{y})-f(\bm{x}) \geq \frac{f(\bm{x}+\lambda(\bm{y}-\bm{x}) - f(\bm{x})}{\lambda(\bm{y}-\bm{x})}(\bm{y} - \bm{x})$$
+$\Rightarrow$
+$$f(\bm{y})-f(\bm{x}) \geq \nabla f(\bm{x})^T(\bm{y}-\bm{x})$$
+If $\nabla f(\bm{x^*})\neq 0 $, then $\bm{d} = -\nabla f(\bm{x^*})$ is a descent direction, whereby $\bm{x^*}$ cannot be a global minimizer.\\
+$\therefore$ the global minimizer satisfies the condition $\nabla f(\bm{x^*})=0$\\
+
+
+\end{proof}
+
+\item[3 4]: Please read file LinearRegression.ipynb\\
+\end{description}
+\end{document}
