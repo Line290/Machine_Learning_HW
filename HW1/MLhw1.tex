@@ -24,11 +24,14 @@
 \item[2 (2)]: 
 \begin{proof}
 Suppose a sufficiently small step $\alpha \bm{d}$, $\alpha > 0$.\\
-We have $f(\bm{x}+\alpha\bm{d}) = f(\bm{x}) + \alpha \nabla f(\bm{x})^{T}\bm{d} + \alpha ||\bm{d}||\sigma_{\bm{x}}(\alpha\bm{d})$, where $\sigma_{\bm{x}}(\alpha\bm{d})\rightarrow 0$ as $\alpha\rightarrow 0$\\
+We have $f(\bm{x}+\alpha\bm{d}) = f(\bm{x}) + \alpha \nabla f(\bm{x})^{T}\bm{d} + o(\alpha ||\bm{d}||)$, where $o(\alpha ||\bm{d}||)\rightarrow 0$ as $\alpha\rightarrow 0$, since $||\bm{d}||$ is $1$.\\
 $\Rightarrow$
-$$\frac{f(\bm{x}+\alpha\bm{d}) -f(\bm{x})}{\alpha} = \nabla f(\bm{x})^{T}\bm{d} + ||\bm{d}||\sigma_{\bm{x}}(\alpha\bm{d})$$
-Since $\nabla f(\bm{x})^{T}\bm{d} < 0$ and $\sigma_{\bm{x}}(\alpha\bm{d})\rightarrow 0$ as $\alpha\rightarrow 0$\\
-$\therefore$ $f(\bm{x}+\alpha\bm{d}) < f(\bm{x})$, $\forall \alpha > 0$ sufficiently small.\\
+$$\frac{f(\bm{x}+\alpha\bm{d}) -f(\bm{x})}{\alpha} = \nabla f(\bm{x})^{T}\bm{d} + \frac{o(\alpha ||\bm{d}||)}{\alpha}$$
+Since $\lim_{\alpha\to0}\frac{o(\alpha ||\bm{d}||)}{\alpha}$, \\
+then $\exists \bar\alpha$, s.t. $\forall \alpha\in(0,\bar\alpha)$,\\
+we have $\frac{o(\alpha ||\bm{d}||)}{\alpha} < \frac{1}{2}|\alpha \nabla f(\bm{x})^{T}\bm{d}|$\\
+Since $\alpha \nabla f(\bm{x})^{T}\bm{d}<0$ by assumption, we conclude that $\forall \alpha\in(0,\bar\alpha)$,\\
+$f(\bm{x}+\alpha\bm{d}) - f(\bm{x})< \frac{1}{2}\alpha \nabla f(\bm{x})^{T}\bm{d} < 0$\\
 \end{proof}
 \item[2 (1)]:
 \begin{proof}
@@ -49,12 +52,27 @@ $$\lambda f(\bm{y}) + (1-\lambda)f(\bm{x}) \geq f(\lambda \bm{y}+(1-\lambda)\bm{
 $\Rightarrow$
 $$f(\bm{x}) + \lambda(f(\bm{y})-f(\bm{x})) \geq f(\bm{x}+\lambda(\bm{y}-\bm{x}))$$
 $\Rightarrow$
-$$f(\bm{y})-f(\bm{x}) \geq \frac{f(\bm{x}+\lambda(\bm{y}-\bm{x}) - f(\bm{x})}{\lambda(\bm{y}-\bm{x})}(\bm{y} - \bm{x})$$
+$$f(\bm{y})-f(\bm{x}) \geq \frac{f(\bm{x}+\lambda(\bm{y}-\bm{x})) - f(\bm{x})}{\lambda(\bm{y}-\bm{x})}(\bm{y} - \bm{x})$$
 $\Rightarrow$
 $$f(\bm{y})-f(\bm{x}) \geq \nabla f(\bm{x})^T(\bm{y}-\bm{x})$$
-If $\nabla f(\bm{x^*})\neq 0 $, then $\bm{d} = -\nabla f(\bm{x^*})$ is a descent direction, whereby $\bm{x^*}$ cannot be a global minimizer.\\
-$\therefore$ the global minimizer satisfies the condition $\nabla f(\bm{x^*})=0$\\
 
+%add start
+Suppose $\bm{x^*}$ is the global minimizer, $\bm{x^*}$ doesn't satisfy $\nabla f(\bm{x^*}) = 0$, we can move $\bm{x^*}$ along direction $-\nabla f(\bm{x^*})$ with non-zero distance to $\bm{y}$; such that $\nabla f(\bm{x^*})^T(\bm{y}-\bm{x^*}) < 0$.
+\par Consider $\phi(\alpha) = f(\bm{x^*}+\alpha(\bm{y}-\bm{x^*}))$, because $f$ is convex, such that $\forall \alpha \in [0,1]$ $\bm{x^*} + \alpha(\bm{y}-\bm{x^*}) \in \bm{dom}(f)$.\\
+Observe that
+
+$$\phi\prime(\alpha) = (\bm{y}-\bm{x^*})^T \nabla f(\bm{x^*}+\alpha(\bm{y}-\bm{x^*}))$$
+
+$\Rightarrow$ $$\phi\prime(0) = (\bm{y}-\bm{x^*})^T\nabla f(\bm{x^*}) < 0$$
+
+
+This implies that
+
+$$\exists \delta > 0, s.t.\ \phi(\alpha) < \phi(0), \forall \alpha \in (0, \delta)$$
+
+$\Rightarrow$ $$f(\bm{x^*} + \alpha(\bm{y}-\bm{x^*})) < f(\bm{x^*}), \forall \alpha \in (0, \delta)$$
+But this contradicts the optimality of $\bm{x^*}$.\\
+%add end
 
 \end{proof}
 
