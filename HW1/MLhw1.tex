@@ -76,6 +76,48 @@ But this contradicts the optimality of $\bm{x^*}$.\\
 
 \end{proof}
 
-\item[3 4]: Please read file LinearRegression.ipynb\\
+\item[3]: The cost function is:
+
+$$y = a\bm{x} + b$$
+$$J(a,b) = \frac{1}{2N}\sum_{i=0}^{N}(y_i - ax_i - b)^2$$
+
+Termination criterion is number of iteration, here I set 50000.\\
+Due to I rescale the input data, so the result:
+$$loss = 0.26617$$
+$$a = -0.206369981511$$
+$$b = 5.44851173492$$
+Shown in Pic.1
+\begin{figure}
+\centering
+        \includegraphics[totalheight=8cm]{3.png}
+    \caption{The result of 4-trainingdata.txt}
+    \label{fig:verticalcell}
+\end{figure}
+\item[4]: The Huber cost function is:
+\[
+L_{\sigma}(y,f(x)) = 
+\begin{cases}
+\frac{1}{2}(y-f(x))^2 & |y-f(x)|\leq\sigma\\
+\sigma |y-f(x)| - \frac{1}{2}\sigma^2 & otherwise
+\end{cases}
+\]
+In 5-trainingdata.txt, use the cost function in Problem 3 is shown in Pic.2.\\
+And loss 
+\begin{figure}
+\centering
+        \includegraphics[totalheight=8cm]{5b.png}
+    \caption{The result of 5-trainingdata.txt in Problem 3 cost function.}
+    \label{fig:verticalcell}
+\end{figure}
+And the Huber cost funcion is Pic.3, a little improve than old one.
+
+\begin{figure}
+\centering
+        \includegraphics[totalheight=8cm]{5a.png}
+    \caption{The result of 5-trainingdata.txt in Huber cost function.}
+    \label{fig:verticalcell}
+\end{figure}
+The tess loss for The least-square method and Huber method are 0.08336623884690787 and 0.08333359874471885, respectively.
+
 \end{description}
 \end{document}

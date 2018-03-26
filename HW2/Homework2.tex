@@ -1,0 +1,119 @@
+\documentclass{article}
+\usepackage{amsmath,graphicx}
+\usepackage{cite}
+\usepackage{amsthm,amssymb,amsfonts}
+\usepackage{textcomp}
+\usepackage{bm,enumerate}
+\usepackage{algorithm}    
+\usepackage{algorithmic}
+\usepackage{booktabs}
+
+\newcommand{\mb}{\mathbf}
+\begin{document}
+
+\title{Machine Learning, Spring 2018\\Homework 2}
+\date{Due on 23:59 Mar 30, 2018\\Send to $cs282\_01@163.com$ \\with subject "Chinese name+student number+HW2"}
+\maketitle
+
+\section{The relationship between the maximum likelihood and distance metric  } 
+Suppose $y = f(\mb{\theta}; \mb{x})$ is our model (such as classifier or regression model), $\mb{x} \in \Re^n$ is feature, $y \in \Re$ is response, and $\mb{\theta} \in \Re^K$ is the parameters of model $f$. As you know, the standard processing in machine learning is: We first collocate train samples $\{(\mb{x}_i, y_i)\}, i = 1,2,\cdots,n$, and some loss function will be defined, then we can find the optimal (or suboptimal) $\mb{\theta}^*$ by minimizing the loss function. Mean square error (MSE) is a common loss function.
+\begin{equation*}
+E = \frac{1}{n}\sum\limits_{i=1}^n{(y_i-f(\mb{x}_i))^2}.
+\end{equation*}
+Suppose $y = f(\mb{\theta};\mb{x}) + \varepsilon$, and $\varepsilon \sim \mathcal{N}(0, \sigma^2)$.
+\begin{enumerate}[(1)]
+	\item  Write down the log likelihood function of $\mb{\theta}$;($5$ points)
+	\item Use the maximum likelihood principle to explain why MSE is a good loss function.($10$ points)
+	
+	\item Explain why MSE is not robust to outliers in Homework 1.($10$ points)
+\end{enumerate} 
+
+\section{Linear Regression via Gradient Descent Method}
+\label{problem1}
+The case study ``\textbf{GPA.txt}'' contains high school and university grades for 105 computer science majors at a local state school. We now consider how we could predict a student's university GPA if we knew his or her high school GPA. 
+
+\textbf{Question}: 
+\begin{enumerate}[(1)]
+	\item Formulate this problem with the linear regression and give its expression. Give the expression of the cost function $J(\bm \theta)$. ($5$ points)
+	\item Use the stochastic gradient descent method to solve this linear regression problem, and show your termination criterion in the report. Your termination criterion is required to ensure the convergence of the algorithm. ($15$ points) 
+	\item Plot both your fitted curve and the convergence result. ($10$ points)
+\end{enumerate}
+Please finish your simulation with MATLAB/Python and compress your codes into one file and sent it to TAs.  \textbf{(Do not use any existing solvers. Add annotations to your code, if your code is poorly readable, you won't get the points!)}
+
+\textbf{Notice}:
+%We set the batch size of batch gradient descent method equals $1$ in this problem, which is the same as stochastic gradient descent method. 
+In pseudocode, the stochastic gradient descent method can be presented as follows, where the data is shuffled for each pass to prevent cycles.
+
+\begin{algorithm}
+	\caption{Stochastic Gradient descent}
+	\label{a.af}
+	\begin{algorithmic}[1]
+		\STATE Given the desired accuracy $\epsilon$.
+		\STATE  Initialize the parameter $\bm \theta$ and the learning rate $\alpha$.
+		\REPEAT
+		%		\STATE Update $\bm \theta:=\bm \theta-\alpha \triangledown J(\bm \theta)$.
+		\STATE Randomly shuffle examples in the training set.
+		\FOR {$i=1,\cdots,n$}
+		\STATE Update $\bm \theta:=\bm \theta-\alpha \triangledown J_i(\bm \theta)$.
+		\ENDFOR
+		\UNTIL{\emph{Your termination criterion}. }
+		\STATE \textbf{return} $\bm \theta$.
+	\end{algorithmic}
+\end{algorithm}
+
+
+
+\section{Multivariable Linear Regression}
+
+Please refer to the data \textbf{car-data.xls}, there is a representative sample of cars' attributes and price. 
+The columns in the table are described as:
+
+Price: suggested retail price of the car 
+
+Mileage: number of miles the car has been driven
+
+Make: manufacturer of the car such as Saturn, Pontiac, and Chevrolet
+
+Model: specific models for each car manufacturer such as Ion, Vibe, Cavalier
+
+Trim (of car): specific type of car model such as SE Sedan 4D, Quad Coupe 2D
+
+Type: body type such as sedan, coupe, etc.
+
+Cylinder: number of cylinders in the engine	
+
+Liter: a more specific measure of engine size	
+
+Doors: number of doors	
+
+Cruise: indicator variable representing whether the car has cruise control (1 = cruise)
+
+Sound: indicator variable representing whether the car has upgraded speakers (1 = upgraded)
+
+Leather: indicator variable representing whether the car has leather seats (1 = leather)
+
+\textbf{Notice:} Please finish your simulation with MATLAB/Python and compress your codes into one file and sent it to TAs. You should also write your answer to the questions below. \textbf{(Do not use any existing solvers. Add annotations to your code, if your code is poorly readable, you won't get the points!)}
+
+
+\begin{enumerate}[(1)]
+\item Find the linear regression equation for Mileage vs Price.
+\begin{enumerate}[(i)]
+\item Write the linear regression equation,  plot the data and your equation. ($5$ points)
+
+\item How to determine whether your equation is a good fit for this data? Find it and evaluate it. (Key: You may like to use $R^2$ score, 0.8 and greater is considered a strong correlation.) ($5$ points)
+
+\item Does the Mileage affect the price? How big is the impact? Why? ($5$ points)
+\end{enumerate}
+\item Use Mileage, Cylinders, Liters, Doors, Cruise, Sound, and Leather to find the linear regression equation about price.
+\begin{enumerate}[(i)]
+\item Write the linear regression equation. ($10$ points)
+
+\item How to determine whether your equation is a good fit for this data? Find it and evaluate it. ($10$ points)
+
+\item Find the combination of the factors that is the best predictor for Price. ($10$ points)
+
+\end{enumerate}
+\end{enumerate}
+
+%\eenu
+\end{document}
