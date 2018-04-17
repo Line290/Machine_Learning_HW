@@ -75,7 +75,7 @@ Conversely, if $\bm{x}(t)$ was incorrectly classified as positive, then $y(t) = 
 	\begin{equation}
 	\begin{aligned}
 	 \text{logit}(p) &= \log \frac{p}{1-p} = \bm{w^T}\bm{x^{(i)}}\\
-	 p &= \frac{1}{1+e^{\bm{w^T}\bm{x^{(i)}}}}\\
+	 p &= \frac{1}{1+e^{-\bm{w^T}\bm{x^{(i)}}}}\\
 	 &=\sigma(\bm{w}^T\bm{x^{(i)}})
 	\end{aligned}
 	\end{equation}
@@ -86,11 +86,11 @@ Conversely, if $\bm{x}(t)$ was incorrectly classified as positive, then $y(t) = 
 	\item As long as $\bm{x}$ is not zero, the squared error loss with respect to $\bm{w}$ will be non-convex. It's hard to optimize. Whereas the log loss is convex.
 
 	% \item Now suppose we have a 3-class task, i.e., $y(i)\in\{1,2,3\}$, find the Negative Log-Likelyhood of the given data (the objective of the softmax regression problem). (10 points)
-	\item $$\mathbb{P}(y^{(i)}=k|\bm{x}=\bm{x}^{(i)}) = \mathds{1}\{y^{(i)}=k\}\frac{e^{f_{y^{(i)}}}}{\sum_{j=1}^{3}e^{f_j}}$$\\
+	\item $$\mathbb{P}(y^{(i)}=k|\bm{x}=\bm{x}^{(i)}) = {\displaystyle \sum_{k=1}^{K}}\mathds{1}\{y^{(i)}=k\}\frac{e^{f_{y^{(i)}}}}{\sum_{j=1}^{3}e^{f_j}}$$\\
 	in there $f(\bm{x}^{(i)}, \bm{W})=\bm{W}^T\bm{x}^{(i)}$,$k=1,2,3$\\
-	$$L(y^{(1)},\dots,y^{(N)}|\bm{x}^{(1)},\dots, \bm{x}^{(N)};\bm{W}) = \prod_{i=1}^{N}\mathds{1}\{y^{(i)}=k\}\frac{e^{f_{y^{(i)}}}}{\sum_{j=1}^{3}e^{f_j}}$$\\
+	$$L(y^{(1)},\dots,y^{(N)}|\bm{x}^{(1)},\dots, \bm{x}^{(N)};\bm{W}) = {\displaystyle \prod_{i=1}^{N}}{\displaystyle \sum_{k=1}^{K}}\mathds{1}\{y^{(i)}=k\}\frac{e^{f_{y^{(i)}}}}{\sum_{j=1}^{3}e^{f_j}}$$\\
 	The Negative Log-Likelyhood of the $N$ samples as follows:\\
-	$$-\ln{L} = -\sum_{i=1}^{N}\mathds{1}\{y^{(i)}=k\}(f_{y^{(i)}}-\ln{\sum_{j=1}^{3}e^{f_j}})$$
+	$$-\ln{L} = -\sum_{i=1}^{N}{\displaystyle \sum_{k=1}^{K}}\mathds{1}\{y^{(i)}=k\}(f_{y^{(i)}}-\ln{\sum_{j=1}^{3}e^{f_j}})$$
 \end{enumerate}
 
 
@@ -106,13 +106,13 @@ Conversely, if $\bm{x}(t)$ was incorrectly classified as positive, then $y(t) = 
 	% \item Show that maximizing the log likehood is equal to minimizing the sum-of-squares error function. (10 points)
 	\item 
 	\begin{proof}
-	For sigle sample:\\
+	For single sample:\\
 
 	$$p(t|x,\textbf{w}, \sigma) = \frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{[t-y(x,\textbf{w})]^2}{2\sigma^2}}$$\\
 	For all samples, likehood is :\\
-	$$L = \prod_{i=1}^{N} p(t_i|x_i,\bm{w}, \sigma) = \prod_{i=1}^{N}\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(t_i-y_i)^2}{2\sigma^2}}$$\\
+	$$L = \prod_{i=1}^{N} p(t^{(i)}|x^{(i)},\bm{w}, \sigma) = \prod_{i=1}^{N}\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(t^{(i)}-y^{(i)})^2}{2\sigma^2}}$$\\
 	log-likehood: \\
-	$$\ln{L} = -N\ln{\sqrt{2\pi}\sigma}-\frac{1}{2\sigma^2}\sum_{i=1}^{N}(t_i-y_i)^2$$\\
+	$$\ln{L} = -N\ln{\sqrt{2\pi}\sigma}-\frac{1}{2\sigma^2}\sum_{i=1}^{N}(t^{(i)}-y^{(i)})^2$$\\
 	$\therefore$ Maximizing the log likehood is equal to minimizing the sum-of- squares error function.
 	\end{proof}
 	% \item More, if we assume that the ploynomial codfficients $\textbf{w}$ is distributed as the Guassian distribution of the form
@@ -121,7 +121,7 @@ Conversely, if $\bm{x}(t)$ was incorrectly classified as positive, then $y(t) = 
 	% Then what is the formulation of the prediction problem?  And give us the regularization parameter. Please show us the induction of the procedure.\\
 	% (Hint. Using Bayes' theorem) (15 points)
 	\item 
-	According to Bayes' theorem, for sigle sample:\\
+	According to Bayes' theorem, for single sample:\\
 	\begin{equation}
 	\begin{aligned}
 	p(t,\bm{w}|x, \alpha, \sigma) &= p(t|\bm{w}, x,\alpha, \sigma)\cdot p(\bm{w}|x,\alpha, \sigma)\\
@@ -132,14 +132,14 @@ Conversely, if $\bm{x}(t)$ was incorrectly classified as positive, then $y(t) = 
 	For all samples, likehood is :\\
 	\begin{equation}
 		\begin{aligned}
-		L &= {\displaystyle \prod_{i=1}^{N}} p(t_i,\bm{w}|x_i,\alpha,\sigma)\\
-		&=(\frac{1}{\sqrt{2\pi}\sigma})^N(\frac{1}{\sqrt{(2\pi\alpha)^D}})^N exp({\displaystyle \sum_{i=1}^{N}}(-\frac{1}{2\sigma^2}(t_i-y_i)^2 - \frac{1}{2\alpha}\norm{\bm{w}}2)
+		L &= {\displaystyle \prod_{i=1}^{N}} p(t^{(i)},\bm{w}|x^{(i)},\alpha,\sigma)\\
+		&=(\frac{1}{\sqrt{2\pi}\sigma})^N(\frac{1}{\sqrt{(2\pi\alpha)^D}})^N exp({\displaystyle \sum_{i=1}^{N}}(-\frac{1}{2\sigma^2}(t^{(i)}-y^{(i)})^2 - \frac{1}{2\alpha}\norm{\bm{w}}2)
 		\end{aligned}
 	\end{equation}
 	$\frac{1}{N}$log-likehood: \\
-	$$\frac{1}{N}\ln{L} = C - \frac{1}{N}{\displaystyle \sum_{i=1}^{N}}(\frac{1}{2\sigma^2}(t_i-y_i)^2 + \frac{1}{2\alpha}\norm{\bm{w}}2), C \text{ is constant}$$
+	$$\frac{1}{N}\ln{L} = C - \frac{1}{N}{\displaystyle \sum_{i=1}^{N}}(\frac{1}{2\sigma^2}(t^{(i)}-y^{(i)})^2 + \frac{1}{2\alpha}\norm{\bm{w}}2), C \text{ is constant}$$
 	The formulation of the prediction problem is:\\
-	$$\displaystyle{\minimize\frac{1}{N}{\displaystyle \sum_{i=1}^{N}}(\frac{1}{2\sigma^2}(t_i-\bm{w}^Tx_i))^2 + \frac{1}{2\alpha}\norm{\bm{w}}2)}$$
+	$$\displaystyle{\minimize\frac{1}{N}{\displaystyle \sum_{i=1}^{N}}(\frac{1}{2\sigma^2}(t^{(i)}-\bm{w}^Tx^{(i)}))^2 + \frac{1}{2\alpha}\norm{\bm{w}}2)}$$
 \end{enumerate}
 
 
