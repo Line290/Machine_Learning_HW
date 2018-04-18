@@ -126,20 +126,21 @@ Conversely, if $\bm{x}(t)$ was incorrectly classified as positive, then $y(t) = 
 	\begin{aligned}
 	p(t,\bm{w}|x, \alpha, \sigma) &= p(t|\bm{w}, x,\alpha, \sigma)\cdot p(\bm{w}|x,\alpha, \sigma)\\
 	&=\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{[t-y(x,\textbf{w})]^2}{2\sigma^2}}\cdot \frac{1}{\sqrt{(2\pi)^D|\alpha I|}}e^{-\frac{1}{2}\bm{w}^T(\alpha I)^{-1}\bm{w}}\\
-	&=\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{[t-y(x,\textbf{w})]^2}{2\sigma^2}}\cdot \frac{1}{\sqrt{(2\pi\alpha)^D}}e^{-\frac{1}{2\alpha}\norm{\bm{w}}2}
+	&=\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{[t-y(x,\textbf{w})]^2}{2\sigma^2}}\cdot \frac{1}{\sqrt{(2\pi\alpha)^D}}e^{-\frac{1}{2\alpha}\norm{\bm{w}}2^2}
 	\end{aligned}
 	\end{equation}
 	For all samples, likehood is :\\
 	\begin{equation}
 		\begin{aligned}
 		L &= {\displaystyle \prod_{i=1}^{N}} p(t^{(i)},\bm{w}|x^{(i)},\alpha,\sigma)\\
-		&=(\frac{1}{\sqrt{2\pi}\sigma})^N(\frac{1}{\sqrt{(2\pi\alpha)^D}})^N exp({\displaystyle \sum_{i=1}^{N}}(-\frac{1}{2\sigma^2}(t^{(i)}-y^{(i)})^2 - \frac{1}{2\alpha}\norm{\bm{w}}2)
+		&=(\frac{1}{\sqrt{2\pi}\sigma})^N(\frac{1}{\sqrt{(2\pi\alpha)^D}})^N exp({\displaystyle \sum_{i=1}^{N}}(-\frac{1}{2\sigma^2}(t^{(i)}-y^{(i)})^2 - \frac{1}{2\alpha}\norm{\bm{w}}2^2)
 		\end{aligned}
 	\end{equation}
 	$\frac{1}{N}$log-likehood: \\
-	$$\frac{1}{N}\ln{L} = C - \frac{1}{N}{\displaystyle \sum_{i=1}^{N}}(\frac{1}{2\sigma^2}(t^{(i)}-y^{(i)})^2 + \frac{1}{2\alpha}\norm{\bm{w}}2), C \text{ is constant}$$
+	$$\frac{1}{N}\ln{L} = C - \frac{1}{N}{\displaystyle \sum_{i=1}^{N}}(\frac{1}{2\sigma^2}(t^{(i)}-y^{(i)})^2 + \frac{1}{2\alpha}\norm{\bm{w}}2^2), C \text{ is constant}$$
 	The formulation of the prediction problem is:\\
-	$$\displaystyle{\minimize\frac{1}{N}{\displaystyle \sum_{i=1}^{N}}(\frac{1}{2\sigma^2}(t^{(i)}-\bm{w}^Tx^{(i)}))^2 + \frac{1}{2\alpha}\norm{\bm{w}}2)}$$
+	$$\displaystyle{\minimize\frac{1}{N}{\displaystyle \sum_{i=1}^{N}}(\frac{1}{2\sigma^2}(t^{(i)}-\bm{w}^Tx^{(i)}))^2 + \frac{1}{2\alpha}\norm{\bm{w}}2^2)}$$
+	Regularization parameter is: $\frac{1}{2\alpha}$
 \end{enumerate}
 
 
