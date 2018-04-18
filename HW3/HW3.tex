@@ -161,7 +161,7 @@ Conversely, if $\bm{x}(t)$ was incorrectly classified as positive, then $y(t) = 
 % \end{bmatrix}
 % \end{equation}
 % where the first two columns are the attributes (data matrix $\mb{X}$) and the last column is the label $\mb{y}$. Plot the norm of gradient corresponding to three algorithms to illustrate the convergence. (10 points)
-\item Fig.1. shows the norm of gradient corresponding to three algorithms. All of three algorithms were terminated when the norm of gradient small than 0.00001(In last question, I change it to 0.001 for BFGS and add normalization, so plot maybe different as shown.) and keep in one Matlab function file named $lr\_lindq.m$. Each algorithm was called by a extra arguments $type$, 0, 1 and 2 corresponding to Negative gradient, Newton’s direction and BFGS, respectively.
+\item Fig.1. shows the norm of gradient corresponding to three algorithms. All of three algorithms were terminated when the norm of gradient small than 0.00001(In last question, I change it to 0.001 for BFGS, gradient divide the number of samples and add normalization, so plot image maybe different as shown if you run code without change these.) and keep in one Matlab function file named $lr\_lindq.m$. Each algorithm was called by a extra arguments $type$, 0, 1 and 2 corresponding to Negative gradient, Newton’s direction and BFGS, respectively.
 \begin{figure}[htb]
 \centering
   \begin{tabular}{@{}ccc@{}}
