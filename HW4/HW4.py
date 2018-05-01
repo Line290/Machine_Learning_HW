@@ -129,8 +129,9 @@ for reg in regs:
                                    batch_size = batch_size, 
                                    verbose=True)
         val_loss = loss_gradient(X_val, y_val, W, reg, Is_train=False)
+        val_loss /= X_val.shape[0]
         print 'Train loss: ', loss_history[-1]
-        print 'Validation loss: ', val_loss
+        print 'Average Validation loss : ', val_loss
         if best_val_loss > val_loss:
             best_val_loss = val_loss
             best_W = W
