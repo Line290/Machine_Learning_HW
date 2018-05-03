@@ -133,43 +133,50 @@ Then, show that $\textbf{variance}+\textbf{bias}^2+\sigma^2 = \mathbb{E}_{\mathc
 % The main goal of this homework is to give you some experience using L2 regularization as a method for variable selection and using 10-folder cross-validation as a technique to get an insight on how the model will generalize to an independent dataset.Your function should accept a scalar value of $\lambda$, a vector-valued response variable ($\mathbf{y}$), a matrix of input variables ($\mathbf{X}$), and an initial vector of weights ($\mathbf{w}_0$). It should output a vector of coefficient values ($\hat{\mathbf{w}}$).
 
 % In your analysis, include:
-In this program, I set the learning rate is equal to $0.00001$ and termination condition is the L1 norm of the gradient of weight not larger than $7\times 10^{-5}$.
+In this program, I set the learning rate is equal to $0.00001$ and termination condition is the L infinity norm of the gradient of weight not larger than $7\times 10^{-5}$.
 \begin{enumerate}[(1)]
 % \item \emph{ (points)} A plot of $\log(\lambda)$ against the squared error in the 10-folder splited training data. (15 points)
 \item
 Please look at fig.1\\ 
-The $\lambda$ range from $10^{-6}$ to $10^{3}$, step is $\times 10$, and I chose the smallest validation loss among $10$ folders for each $\lambda$ as the result.
+The $\lambda$ range from $10^{-6}$ to $10^{5}$, step is $\times 10$.\\
+Consider the numbers of data in different folders are different, so I used the average of square loss in validation set.\\
 \begin{figure}
 \centering
-        \includegraphics[totalheight=8cm]{q1.png}
-    \caption{Q1: log$(\lambda)$ VS Squared Error in Training Data}
+        \includegraphics[totalheight=8cm]{q_1.png}
+    \caption{Q1: log$(\lambda)$ VS Average Squared Error in valdation set for each k folder}
     \label{fig:verticalcell}
 \end{figure}
 % \item \emph{( points)} A plot of $\log(\lambda)$ against the squared error in the test data. (10 points)
-\item 
-Please look at fig.2
+\\log$(\lambda)$ VS Average Squared Error in valdation set for average of K-folder. Please look at fig.2
 \begin{figure}
 \centering
-        \includegraphics[totalheight=8cm]{q2.png}
-    \caption{Q2: log$(\lambda)$ VS Squared Error in Test Data}
+        \includegraphics[totalheight=8cm]{q_2.png}
+    \caption{Q2: log$(\lambda)$ VS Average Squared Error in valdation set for average of K-folder}
     \label{fig:verticalcell}
 \end{figure}
+\item 
+When $\lambda = 0.01$,\\
+The average validation loss is minimum.\\
+The best test set proformance: test loss = $4.18$\\
 % \item \emph{( points)} A plot of $\lambda$ against the number of small coefficients (you can set a threshold), and a brief commentary on the task of selecting $\lambda$. (15 points)
 \item
-The threshold is equal to $10^{-8}$.\\
-When $\lambda = 1$, both of training loss and test loss are minimum, so I chose $\lambda = 1$.
+Please look at fig.3\\ 
+The threshold is equal to $10^{-4}$.\\
+When $\lambda = 0.01$, the number of small coefficients is not large, so it can keep more features. Therefore $\lambda = 0.01$ is reasonable
 \begin{figure}
 \centering
-        \includegraphics[totalheight=8cm]{q3.png}
+        \includegraphics[totalheight=8cm]{q_3.png}
     \caption{Q3: log$(\lambda)$ VS Number of Small Coefficients}
     \label{fig:verticalcell}
 \end{figure}
 % \item \emph{( points)} For the $\lambda$ that gave the best test set performance, which variable had the largest (most positive) coefficient? What about the most negative? Discuss briefly.  (10 points)
 \item 
-When $\lambda = 1$,\\
-The best test set proformance: test loss = $4.28$\\
-The largest coefficient:  $0.23$\\
-The smallest coefficient:  $-0.045$
+When $\lambda = 0.01$,\\
+The best test set proformance: test loss = $4.18$\\
+The largest coefficient: \\
+  name: \textbf{PctIlleg}, value: -0.019\\
+The smallest coefficient: \\
+  name: \textbf{PctKids2Par}, value: -0.01
 \end{enumerate}
 
 
